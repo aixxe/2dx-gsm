@@ -1,0 +1,51 @@
+#include "version.h"
+#include "../../src/bm2dx_offsets.h"
+
+struct bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@ final: binary_info
+{
+    bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@()
+    {
+        product_version = "@EXPECTED_BM2DX_PRODUCT_VERSION@";
+        nt_code_size = @EXPECTED_BM2DX_NT_CODE_SIZE@;
+        nt_entrypoint = @EXPECTED_BM2DX_NT_ENTRYPOINT@;
+        nt_image_size = @EXPECTED_BM2DX_NT_IMAGE_SIZE@;
+
+        register_binary_info(this);
+    }
+
+    void resolve_rva(std::uintptr_t base) override
+    {
+        offsets::death_defying_patch = (base + @RESOLVED_DEATH_DEFYING_PATCH@);
+
+        offsets::state_ptr = (base + @RESOLVED_STATE_PTR@);
+        offsets::gauge_data_ptr = (base + @RESOLVED_GAUGE_DATA_PTR@);
+        offsets::graph_data_ptr = (base + @RESOLVED_GRAPH_DATA_PTR@);
+        offsets::option_data_ptr = (base + @RESOLVED_OPTION_DATA_PTR@);
+        offsets::stage_game_data = (base + @RESOLVED_STAGE_GAME_DATA@);
+
+        offsets::input_ptr = (base + @RESOLVED_INPUT_PTR@);
+
+        offsets::p1_groove_gauge_ptr = (base + @RESOLVED_P1_GROOVE_GAUGE_PTR@);
+        offsets::p2_groove_gauge_ptr = (base + @RESOLVED_P2_GROOVE_GAUGE_PTR@);
+
+        offsets::p1_chart_judgement_ptr = (base + @RESOLVED_P1_CHART_JUDGEMENT_PTR@);
+        offsets::p2_chart_judgement_ptr = (base + @RESOLVED_P2_CHART_JUDGEMENT_PTR@);
+
+        offsets::p1_gauge_option_ptr = (base + @RESOLVED_P1_GAUGE_OPTION_PTR@);
+        offsets::p2_gauge_option_ptr = (base + @RESOLVED_P2_GAUGE_OPTION_PTR@);
+
+        offsets::p1_dead_measure_ptr = (base + @RESOLVED_P1_DEAD_MEASURE_PTR@);
+        offsets::p2_dead_measure_ptr = (base + @RESOLVED_P2_DEAD_MEASURE_PTR@);
+
+        offsets::calculate_individual_chart_judge_value = (base + @RESOLVED_CALCULATE_INDIVIDUAL_CHART_JUDGE_VALUE@);
+
+        offsets::target_calculate_chart_judge = (base + @RESOLVED_TARGET_CALCULATE_CHART_JUDGE@);
+        offsets::target_update_groove_gauge = (base + @RESOLVED_TARGET_UPDATE_GROOVE_GAUGE@);
+        offsets::target_update_graph_data = (base + @RESOLVED_TARGET_UPDATE_GRAPH_DATA@);
+        offsets::target_stage_result_ctor = (base + @RESOLVED_TARGET_STAGE_RESULT_CTOR@);
+        offsets::target_result_graph_render = (base + @RESOLVED_TARGET_RESULT_GRAPH_RENDER@);
+        offsets::target_return_from_result = (base + @RESOLVED_TARGET_RETURN_FROM_RESULT@);
+    }
+};
+
+static const bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@ support_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@;

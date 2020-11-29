@@ -1,0 +1,18 @@
+#pragma once
+
+#include <string>
+#include <cstdint>
+#include <cstddef>
+
+struct binary_info
+{
+    std::string product_version;
+    std::uint64_t nt_code_size;
+    std::uint64_t nt_entrypoint;
+    std::uint64_t nt_image_size;
+
+    virtual ~binary_info() = default;
+    virtual void resolve_rva(std::uintptr_t base) = 0;
+};
+
+extern void register_binary_info(binary_info* info);

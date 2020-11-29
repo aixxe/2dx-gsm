@@ -1,0 +1,15 @@
+{
+    "name": "2dx-gsm",
+    "version": "1.3.0.0",
+    "builtin-baseline": "043abf2fa419c288d594a6b96b98a811457bd9b5",
+    "dependencies": [
+        {
+            "name": "spdlog",
+            "version>=": "1.15.1"
+        },
+        {
+            "name": "safetyhook",
+            "version>=": "0.6.5"
+        }
+    ]
+}
