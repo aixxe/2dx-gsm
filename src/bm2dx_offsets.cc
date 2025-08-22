@@ -12,16 +12,28 @@ namespace offsets
 
     std::uintptr_t death_defying_patch = 0;
 
+    std::uintptr_t gauge_render_fn_begin = 0;
+    std::uintptr_t gauge_render_texture_fn = 0;
+
     std::uintptr_t state_ptr = 0;
     std::uintptr_t gauge_data_ptr = 0;
-    std::uintptr_t graph_data_ptr = 0;
     std::uintptr_t option_data_ptr = 0;
-    std::uintptr_t stage_game_data = 0;
+
+    std::uintptr_t get_gauge_fn = 0;
+    std::uintptr_t set_gauge_fn = 0;
+    std::uintptr_t is_dan_practice_fn = 0;
+
+    std::ptrdiff_t gauge_data_ghost_offset = 0;
+    std::ptrdiff_t gauge_data_count_offset = 0;
+    std::ptrdiff_t gauge_data_player_offset = 0;
 
     std::uintptr_t input_ptr = 0;
 
     std::uintptr_t p1_groove_gauge_ptr = 0;
     std::uintptr_t p2_groove_gauge_ptr = 0;
+
+    std::uintptr_t p1_result_graph_ptr = 0;
+    std::uintptr_t p2_result_graph_ptr = 0;
 
     std::uintptr_t p1_chart_judgement_ptr = 0;
     std::uintptr_t p2_chart_judgement_ptr = 0;
@@ -37,7 +49,7 @@ namespace offsets
     std::uintptr_t target_calculate_chart_judge = 0;
     std::uintptr_t target_update_groove_gauge = 0;
     std::uintptr_t target_update_graph_data = 0;
-    std::uintptr_t target_stage_result_ctor = 0;
+    std::uintptr_t target_draw_graph_ctor = 0;
     std::uintptr_t target_result_graph_render = 0;
     std::uintptr_t target_return_from_result = 0;
 

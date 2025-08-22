@@ -22,8 +22,11 @@ std::string config_get_module(const std::filesystem::path& path)
     if (!std::string_view(value).empty())
         return value;
 
-    // infinitas default
-    return "bm2dx.exe";
+    // common arcade names
+    if (GetModuleHandleA("bm2dx_omni.dll") != nullptr)
+        return "bm2dx_omni.dll";
+
+    return "bm2dx.dll";
 }
 
 void config_get_bottom_shiftable_gauge(const std::filesystem::path& path, std::uint8_t& result_sp, std::uint8_t& result_dp)

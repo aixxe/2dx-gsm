@@ -17,16 +17,28 @@ struct bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@
     {
         offsets::death_defying_patch = (base + @RESOLVED_DEATH_DEFYING_PATCH@);
 
+        offsets::gauge_render_fn_begin = (base + @RESOLVED_GAUGE_RENDER_FN_BEGIN@);
+        offsets::gauge_render_texture_fn = (base + @RESOLVED_GAUGE_RENDER_TEXTURE_FN@);
+
         offsets::state_ptr = (base + @RESOLVED_STATE_PTR@);
         offsets::gauge_data_ptr = (base + @RESOLVED_GAUGE_DATA_PTR@);
-        offsets::graph_data_ptr = (base + @RESOLVED_GRAPH_DATA_PTR@);
         offsets::option_data_ptr = (base + @RESOLVED_OPTION_DATA_PTR@);
-        offsets::stage_game_data = (base + @RESOLVED_STAGE_GAME_DATA@);
+
+        offsets::get_gauge_fn = (base + @RESOLVED_GET_GAUGE_FN@);
+        offsets::set_gauge_fn = (base + @RESOLVED_SET_GAUGE_FN@);
+        offsets::is_dan_practice_fn = (base + @RESOLVED_IS_DAN_PRACTICE_FN@);
+
+        offsets::gauge_data_ghost_offset = @RESOLVED_GAUGE_DATA_GHOST_OFFSET@;
+        offsets::gauge_data_count_offset = @RESOLVED_GAUGE_DATA_COUNT_OFFSET@;
+        offsets::gauge_data_player_offset = @RESOLVED_GAUGE_DATA_PLAYER_OFFSET@;
 
         offsets::input_ptr = (base + @RESOLVED_INPUT_PTR@);
 
         offsets::p1_groove_gauge_ptr = (base + @RESOLVED_P1_GROOVE_GAUGE_PTR@);
         offsets::p2_groove_gauge_ptr = (base + @RESOLVED_P2_GROOVE_GAUGE_PTR@);
+
+        offsets::p1_result_graph_ptr = (base + @RESOLVED_P1_RESULT_GRAPH_PTR@);
+        offsets::p2_result_graph_ptr = (base + @RESOLVED_P2_RESULT_GRAPH_PTR@);
 
         offsets::p1_chart_judgement_ptr = (base + @RESOLVED_P1_CHART_JUDGEMENT_PTR@);
         offsets::p2_chart_judgement_ptr = (base + @RESOLVED_P2_CHART_JUDGEMENT_PTR@);
@@ -42,7 +54,7 @@ struct bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@
         offsets::target_calculate_chart_judge = (base + @RESOLVED_TARGET_CALCULATE_CHART_JUDGE@);
         offsets::target_update_groove_gauge = (base + @RESOLVED_TARGET_UPDATE_GROOVE_GAUGE@);
         offsets::target_update_graph_data = (base + @RESOLVED_TARGET_UPDATE_GRAPH_DATA@);
-        offsets::target_stage_result_ctor = (base + @RESOLVED_TARGET_STAGE_RESULT_CTOR@);
+        offsets::target_draw_graph_ctor = (base + @RESOLVED_TARGET_DRAW_GRAPH_CTOR@);
         offsets::target_result_graph_render = (base + @RESOLVED_TARGET_RESULT_GRAPH_RENDER@);
         offsets::target_return_from_result = (base + @RESOLVED_TARGET_RETURN_FROM_RESULT@);
     }

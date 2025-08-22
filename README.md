@@ -3,7 +3,7 @@
 # GAUGE SHIFT MANEUVER
 [![Build-MSVC](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSVC.yml/badge.svg)](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSVC.yml) [![Build-MSYS2-CLANG64](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSYS2-CLANG64.yml/badge.svg)](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSYS2-CLANG64.yml)
 
-Automatic gauge shifting implementation for **beatmania IIDX INFINITAS**
+Automatic gauge shifting implementation for **beatmania IIDX**
 
 Similar to ALTERNATIVE RATE SYSTEM (ARS) in SOUND VOLTEX or the "SELECT TO UNDER" GAS mode in beatoraja, it allows you to continue playing after fully depleting the EX HARD or HARD gauge
 
