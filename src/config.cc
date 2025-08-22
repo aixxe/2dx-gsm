@@ -26,14 +26,6 @@ std::string config_get_module(const std::filesystem::path& path)
     return "bm2dx.exe";
 }
 
-bool config_get_updater_enabled(const std::filesystem::path& path)
-{
-    wchar_t value[32] = {0};
-    GetPrivateProfileString(L"Updater", L"Enabled", L"True", (LPWSTR) &value, 32, path.wstring().c_str());
-
-    return std::wstring_view(value) == L"True";
-}
-
 void config_get_bottom_shiftable_gauge(const std::filesystem::path& path, std::uint8_t& result_sp, std::uint8_t& result_dp)
 {
     // read values from file
@@ -63,9 +55,6 @@ void init_config(HMODULE module)
     // read values
     app_cfg.module = config_get_module(config_file);
     spdlog::info("set 'module' to '{}'...", app_cfg.module);
-
-    app_cfg.updater_enabled = config_get_updater_enabled(config_file);
-    spdlog::info("set 'updater_enabled' to '{}'...", app_cfg.updater_enabled);
 
     config_get_bottom_shiftable_gauge(config_file, app_cfg.bottom_shiftable_gauge_sp, app_cfg.bottom_shiftable_gauge_dp);
 }

@@ -5,8 +5,6 @@
 
 struct config_t
 {
-    bool updater_enabled;
-
     std::string module;
 
     std::uint8_t bottom_shiftable_gauge_sp;
