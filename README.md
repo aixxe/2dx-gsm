@@ -9,4 +9,4 @@ Similar to ALTERNATIVE RATE SYSTEM (ARS) in SOUND VOLTEX or the "SELECT TO UNDER
 
 If you always want the best possible clear, simply set the gauge in-game to EX HARD and leave it on. The lowest shiftable gauge is ASSISTED EASY by default, which can be edited in the configuration file. You will automatically shift up from ASSISTED EASY to EASY, then NORMAL when you meet the requirements
 
-To see how you did on each gauge, press the <kbd>E2</kbd> controller button or <kbd>Tab</kbd> on the result screen
+To see how you did on each gauge, press the <kbd>VEFX</kbd> button on the result screen
