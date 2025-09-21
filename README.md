@@ -1,7 +1,7 @@
 ![](.github/images/demo.gif)
 
 # GAUGE SHIFT MANEUVER
-[![Build-MSVC](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSVC.yml/badge.svg)](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSVC.yml) [![Build-MSYS2-CLANG64](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSYS2-CLANG64.yml/badge.svg)](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSYS2-CLANG64.yml)
+[![Build-MSVC](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSVC.yml/badge.svg)](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-MSVC.yml) [![Build-LLVM](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-LLVM.yml/badge.svg)](https://github.com/aixxe/2dx-gsm/actions/workflows/Build-LLVM.yml)
 
 Automatic gauge shifting implementation for **beatmania IIDX**
 

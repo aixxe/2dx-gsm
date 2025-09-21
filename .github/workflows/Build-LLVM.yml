@@ -1,4 +1,4 @@
-name: Build (MSYS2 CLANG64)
+name: Build (LLVM)
 
 on:
   push:
@@ -17,12 +17,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+
+      - name: Cache vcpkg binaries
+        uses: actions/cache@v4
+        with:
+          path: C:\vcpkg-cache
+          key: vcpkg-llvm-${{ hashFiles('vcpkg.json') }}
+
       - name: Setup MSYS2
         uses: msys2/setup-msys2@v2
         with:
           msystem: CLANG64
           update: true
-          install: mingw-w64-clang-x86_64-ninja mingw-w64-clang-x86_64-clang mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-safetyhook mingw-w64-clang-x86_64-spdlog git
+          install: mingw-w64-clang-x86_64-ninja mingw-w64-clang-x86_64-toolchain mingw-w64-clang-x86_64-cmake git
 
       - name: Get commit hash
         id: vars
@@ -31,7 +40,13 @@ jobs:
       - name: Configure CMake
         run: |
           cmake -S . -B build/ \
-            -DCMAKE_BUILD_TYPE=Release
+            -DVCPKG_TARGET_TRIPLET=x64-mingw-static \
+            -DVCPKG_HOST_TRIPLET=x64-mingw-static \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE="vcpkg/scripts/buildsystems/vcpkg.cmake" \
+            -DCMAKE_SHARED_LINKER_FLAGS="-static -static-libstdc++ -s"
+        env:
+          VCPKG_BINARY_SOURCES: "clear;files,C:/vcpkg-cache,readwrite"
 
       - name: Build with CMake
         run: |
