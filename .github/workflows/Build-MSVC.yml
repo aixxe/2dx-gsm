@@ -13,6 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Get commit hash
+        id: vars
+        run: echo "commit_hash=$(git rev-parse --short HEAD)" >> $env:GITHUB_OUTPUT
+
       - name: Setup vcpkg
         uses: lukka/run-vcpkg@v11
 
@@ -28,8 +32,14 @@ jobs:
         run: |
           cmake --build build/ --config Release
 
+      - name: Prepare artifact
+        run: |
+          mkdir artifact
+          copy build\Release\2dx-gsm.dll artifact\
+          copy dist\2dx-gsm.ini artifact\
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: release-artifacts
-          path: build/Release/2dx-gsm.dll
+          name: 2dx-gsm-${{ steps.vars.outputs.commit_hash }}-msvc
+          path: artifact/

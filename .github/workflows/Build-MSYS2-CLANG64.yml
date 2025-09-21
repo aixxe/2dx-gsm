@@ -24,6 +24,10 @@ jobs:
           update: true
           install: mingw-w64-clang-x86_64-ninja mingw-w64-clang-x86_64-clang mingw-w64-clang-x86_64-cmake mingw-w64-clang-x86_64-safetyhook mingw-w64-clang-x86_64-spdlog git
 
+      - name: Get commit hash
+        id: vars
+        run: echo "commit_hash=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
       - name: Configure CMake
         run: |
           cmake -S . -B build/ \
@@ -33,8 +37,14 @@ jobs:
         run: |
           cmake --build build/ --config Release
 
+      - name: Prepare artifact
+        run: |
+          mkdir -v artifact/
+          cp -v build/2dx-gsm.dll artifact/
+          cp -v dist/2dx-gsm.ini artifact/
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: release-artifacts
-          path: build/2dx-gsm.dll
+          name: 2dx-gsm-${{ steps.vars.outputs.commit_hash }}-llvm
+          path: artifact/
