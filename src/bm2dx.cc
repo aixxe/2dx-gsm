@@ -1,4 +1,6 @@
+#include <Zydis/Zydis.h>
 #include "hooks.h"
+#include "config.h"
 #include "bm2dx_offsets.h"
 
 // game pointers
@@ -30,6 +32,9 @@ decltype(calculate_individual_chart_judge_value) calculate_individual_chart_judg
 
 // code patches
 decltype(death_defying_patch) death_defying_patch = nullptr;
+
+// mid-function hooks
+auto midfn_hooks = std::vector<safetyhook::MidHook> {};
 
 void iidx_gsm_load(HMODULE bm2dx)
 {
@@ -77,4 +82,46 @@ void iidx_gsm_load(HMODULE bm2dx)
     draw_graph_ctor_hook = safetyhook::create_inline(offsets::target_draw_graph_ctor, replacement_draw_graph_ctor);
     result_graph_render_hook = safetyhook::create_inline(offsets::target_result_graph_render, replacement_result_graph_render);
     return_from_result_hook = safetyhook::create_inline(offsets::target_return_from_result, replacement_return_from_result);
+
+    // optional mid-function hooks for easy gauge texture stuff
+    if (app_cfg.use_easy_gauge_textures)
+    {
+        auto rip = reinterpret_cast<std::uint8_t*>(offsets::gauge_render_fn_begin);
+        auto const target = reinterpret_cast<std::uint8_t*>(offsets::gauge_render_texture_fn);
+
+        while (true)
+        {
+            auto instruction = ZydisDisassembledInstruction {};
+            auto const result = ZydisDisassembleIntel(ZYDIS_MACHINE_MODE_LONG_64,
+                std::bit_cast<std::uintptr_t>(rip), rip, 15, &instruction);
+
+            if (!ZYAN_SUCCESS(result))
+                break;
+
+            // check for end of function
+            if (instruction.info.length == 1 && *rip == 0xCC)
+                break;
+
+            // advance to next instruction
+            rip += instruction.info.length;
+
+            // check for call to 'gauge render texture' function
+            if (instruction.info.mnemonic != ZYDIS_MNEMONIC_CALL)
+                continue;
+
+            if (instruction.operands[0].type != ZYDIS_OPERAND_TYPE_IMMEDIATE)
+                continue;
+
+            if (rip + instruction.operands[0].imm.value.s != target)
+                continue;
+
+            // install hook on the call instruction
+            auto const addr = rip - instruction.info.length;
+
+            spdlog::debug("installing mid-function hook at 0x{:X}...",
+                std::bit_cast<std::uintptr_t>(addr));
+
+            midfn_hooks.emplace_back(safetyhook::create_mid(addr, hijack_gauge_textures));
+        }
+    }
 }

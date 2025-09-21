@@ -32,3 +32,5 @@ extern void* replacement_update_graph_data (void*, std::int16_t, std::int16_t);
 extern void* replacement_draw_graph_ctor (void*);
 extern void* replacement_result_graph_render (void*);
 extern void* replacement_return_from_result (void*);
+
+extern void hijack_gauge_textures(safetyhook::Context&);

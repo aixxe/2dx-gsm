@@ -53,6 +53,14 @@ void config_get_bottom_shiftable_gauge(const std::filesystem::path& path, std::u
     spdlog::info("set: bottom_shiftable_gauge_dp = {}", gauge_names[result_dp]);
 }
 
+bool config_get_easy_gauge_textures(const std::filesystem::path& path)
+{
+    wchar_t value[32] = {0};
+    GetPrivateProfileString(L"Extras", L"Use Easy Gauge Textures", L"False", (LPWSTR) &value, 32, path.wstring().c_str());
+
+    return std::wstring_view(value) == L"True";
+}
+
 void init_config(HMODULE module)
 {
     // get directory of module
@@ -70,6 +78,9 @@ void init_config(HMODULE module)
     // read values
     app_cfg.module = config_get_module(config_file);
     spdlog::info("set 'module' to '{}'...", app_cfg.module);
+
+    app_cfg.use_easy_gauge_textures = config_get_easy_gauge_textures(config_file);
+    spdlog::info("set 'use_easy_gauge_textures' to '{}'...", app_cfg.use_easy_gauge_textures);
 
     config_get_bottom_shiftable_gauge(config_file, app_cfg.bottom_shiftable_gauge_sp, app_cfg.bottom_shiftable_gauge_dp);
 }

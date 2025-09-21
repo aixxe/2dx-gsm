@@ -38,6 +38,13 @@ std::vector<std::vector<std::int8_t>> allowed_gauge_shifts = {
     {0, 1, 2, 3, 4},    // EX HARD          [EX HARD, HARD, NORMAL, EASY, ASSISTED EASY]
 };
 
+std::unordered_map<std::string_view, std::string_view> texture_remap = {
+    { "playm_gauge_normal_1p",  "playm_gauge_easy_1p" },
+    { "playm_gauge_normal_2p",  "playm_gauge_easy_2p" },
+    { "playm_gauge_normal_dot", "playm_gauge_easy_dot_low" },
+    { "playm_gauge_hard_dot",   "playm_gauge_easy_dot_high" },
+};
+
 // defaults
 std::int8_t gauge_priorities[] = {  2,               0,      1,      3,         4};
 const char* gauge_names[] = {"NORMAL", "ASSISTED EASY", "EASY", "HARD", "EX HARD"};
@@ -517,4 +524,37 @@ void* replacement_return_from_result(void* a1)
     backup_starting_gauge = true;
 
     return return_from_result_hook.call<void*>(a1);
+}
+
+void hijack_gauge_textures(safetyhook::Context& ctx)
+{
+    if (option_data_ptr == nullptr)
+        return;
+
+    auto const player = ctx.rsi;
+
+    if (player != PLAYER_1 && player != PLAYER_2)
+        return;
+
+    auto const texture = std::string_view(reinterpret_cast<const char*>(ctx.rdx));
+
+    // determine the real gauge through option game data
+    auto type = 0U;
+
+    if (state_ptr->play_style == STYLE_DP)
+        type = dp_gauge_type.get();
+    else if (player == PLAYER_1)
+        type = p1_gauge_type.get();
+    else
+        type = p2_gauge_type.get();
+
+    // all other gauges are unique, so we only need to apply to easy
+    if (type != GAUGE_EASY)
+        return;
+
+    // swap address to point to replacement texture
+    if (!texture_remap.contains(texture))
+        return;
+
+    ctx.rdx = reinterpret_cast<std::uintptr_t>(texture_remap.at(texture).data());
 }
