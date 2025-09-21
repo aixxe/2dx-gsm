@@ -12,9 +12,8 @@ BOOL APIENTRY DllMain(HMODULE dll_instance, DWORD reason, LPVOID)
 
         auto game_module = GetModuleHandleA(app_cfg.module.c_str());
 
-        // for infinitas, we can just use the host module
         if (game_module == nullptr)
-            game_module = GetModuleHandleA(nullptr);
+            throw std::runtime_error("could not find game module");
 
         iidx_gsm_load(game_module);
     }
