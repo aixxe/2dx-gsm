@@ -29,6 +29,14 @@ std::string config_get_module(const std::filesystem::path& path)
     return "bm2dx.dll";
 }
 
+bool config_get_verbose(const std::filesystem::path& path)
+{
+    wchar_t value[32] = {0};
+    GetPrivateProfileString(L"Debug", L"Verbose", L"False", (LPWSTR) &value, 32, path.wstring().c_str());
+
+    return std::wstring_view(value) == L"True";
+}
+
 void config_get_bottom_shiftable_gauge(const std::filesystem::path& path, std::uint8_t& result_sp, std::uint8_t& result_dp)
 {
     // read values from file
@@ -54,6 +62,10 @@ void init_config(HMODULE module)
     // determine path of config file
     auto cwd = std::filesystem::path(module_dir).remove_filename();
     auto config_file = cwd.append("2dx-gsm.ini");
+
+    // enable verbose
+    if (config_get_verbose(config_file))
+        spdlog::set_level(spdlog::level::debug);
 
     // read values
     app_cfg.module = config_get_module(config_file);
