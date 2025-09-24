@@ -52,6 +52,7 @@ namespace offsets
     std::uintptr_t target_draw_graph_ctor = 0;
     std::uintptr_t target_result_graph_render = 0;
     std::uintptr_t target_return_from_result = 0;
+    std::uintptr_t target_quick_retry = 0;
 
     void resolve(HMODULE base)
     {
