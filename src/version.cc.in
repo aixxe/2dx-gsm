@@ -57,6 +57,7 @@ struct bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@
         offsets::target_draw_graph_ctor = (base + @RESOLVED_TARGET_DRAW_GRAPH_CTOR@);
         offsets::target_result_graph_render = (base + @RESOLVED_TARGET_RESULT_GRAPH_RENDER@);
         offsets::target_return_from_result = (base + @RESOLVED_TARGET_RETURN_FROM_RESULT@);
+        offsets::target_quick_retry = (base + @RESOLVED_TARGET_QUICK_RETRY@);
     }
 };
 

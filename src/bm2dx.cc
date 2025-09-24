@@ -82,6 +82,7 @@ void iidx_gsm_load(HMODULE bm2dx)
     draw_graph_ctor_hook = safetyhook::create_inline(offsets::target_draw_graph_ctor, replacement_draw_graph_ctor);
     result_graph_render_hook = safetyhook::create_inline(offsets::target_result_graph_render, replacement_result_graph_render);
     return_from_result_hook = safetyhook::create_inline(offsets::target_return_from_result, replacement_return_from_result);
+    quick_retry_hook = safetyhook::create_inline(offsets::target_quick_retry, replacement_quick_retry);
 
     // optional mid-function hooks for easy gauge texture stuff
     if (app_cfg.use_easy_gauge_textures)

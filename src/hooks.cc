@@ -10,6 +10,7 @@ SafetyHookInline update_graph_data_hook;
 SafetyHookInline draw_graph_ctor_hook;
 SafetyHookInline result_graph_render_hook;
 SafetyHookInline return_from_result_hook;
+SafetyHookInline quick_retry_hook;
 
 bool backup_starting_gauge = true;
 
@@ -524,6 +525,23 @@ void* replacement_return_from_result(void* a1)
     backup_starting_gauge = true;
 
     return return_from_result_hook.call<void*>(a1);
+}
+
+std::int8_t replacement_quick_retry(std::int64_t a1)
+{
+    // require the correct game type
+    if (!is_valid_game_type())
+        return quick_retry_hook.call<std::int8_t>(a1);
+
+    // restore the original gauge types for each player
+    p1_gauge_type.set(p1_starting_gauge_type);
+    p2_gauge_type.set(p2_starting_gauge_type);
+    dp_gauge_type.set(dp_starting_gauge_type);
+
+    // allow backing up of original gauge types again
+    backup_starting_gauge = true;
+
+    return quick_retry_hook.call<std::int8_t>(a1);
 }
 
 void hijack_gauge_textures(safetyhook::Context& ctx)

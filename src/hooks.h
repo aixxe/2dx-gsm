@@ -25,6 +25,7 @@ extern SafetyHookInline update_graph_data_hook;
 extern SafetyHookInline draw_graph_ctor_hook;
 extern SafetyHookInline result_graph_render_hook;
 extern SafetyHookInline return_from_result_hook;
+extern SafetyHookInline quick_retry_hook;
 
 extern void* replacement_calculate_chart_judge (std::int64_t, std::int64_t);
 extern void replacement_update_groove_gauge (std::int32_t, std::int32_t);
@@ -32,5 +33,6 @@ extern void* replacement_update_graph_data (void*, std::int16_t, std::int16_t);
 extern void* replacement_draw_graph_ctor (void*);
 extern void* replacement_result_graph_render (void*);
 extern void* replacement_return_from_result (void*);
+extern std::int8_t replacement_quick_retry (std::int64_t);
 
 extern void hijack_gauge_textures(safetyhook::Context&);
