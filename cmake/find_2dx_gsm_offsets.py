@@ -52,6 +52,7 @@ for dll in pathlib.Path(".").glob("bm2dx*.dll"):
         pe = pefile.PE(dll, fast_load=True)
 
         dll_date = dll.name.split("-")[1]
+        dll_version = dll.name.split("-")[2]
         dll_type = dll.name.split("-")[3].split(".")[0]
 
         output_filename = f"2dx-gsm.{dll_date}-{dll_type}.cmake"
@@ -203,9 +204,10 @@ for dll in pathlib.Path(".").glob("bm2dx*.dll"):
             find_pattern("40 55 53 56 57 41 54 41 56 41 57 48 8D 6C 24 ? 48 81 EC ? ? ? ? 48 C7 45 ? ? ? ? ? 4C 8B F9 E8")
         addresses["RESOLVED_TARGET_RETURN_FROM_RESULT"] = pe.get_rva_from_offset(pos())
 
-        # RESOLVED_TARGET_QUICK_RETRY
-        find_pattern("BD FF FF FF FF 45 33 FF", 0x800000, -44)
-        addresses["RESOLVED_TARGET_QUICK_RETRY"] = pe.get_rva_from_offset(pos())
+        if dll_version >= "33":
+            # RESOLVED_TARGET_QUICK_RETRY
+            find_pattern("BD FF FF FF FF 45 33 FF", 0x800000, -44)
+            addresses["RESOLVED_TARGET_QUICK_RETRY"] = pe.get_rva_from_offset(pos())
 
         for title, address in addresses.items():
             output.append(f"set({title:<50} 0x{address:08x})")
