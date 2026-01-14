@@ -1,7 +1,7 @@
 {
-    "builtin-baseline": "6ecbbbdf31cba47aafa7cf6189b1e73e10ac61f8",
+    "builtin-baseline": "f2785bb19e61468ba9fc608c3c8e4c8bfc3950bd",
     "dependencies": [
         { "name": "spdlog", "version>=": "1.15.3" },
-        { "name": "safetyhook", "version>=": "0.6.9" }
+        { "name": "safetyhook", "version>=": "0.6.9#1" }
     ]
 }
