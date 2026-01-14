@@ -206,8 +206,8 @@ for dll in pathlib.Path(".").glob("bm2dx*.dll"):
 
         if dll_version >= "33":
             # RESOLVED_TARGET_QUICK_RETRY
-            find_pattern("BD FF FF FF FF 45 33 FF", 0x800000, -44)
-            addresses["RESOLVED_TARGET_QUICK_RETRY"] = pe.get_rva_from_offset(pos())
+            find_pattern("E8 ? ? ? ? FF 46 ? 48 8B 9C 24")
+            addresses["RESOLVED_TARGET_QUICK_RETRY"] = dereference(1, 5)
 
         for title, address in addresses.items():
             output.append(f"set({title:<50} 0x{address:08x})")
