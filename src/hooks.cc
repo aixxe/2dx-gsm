@@ -63,23 +63,34 @@ auto set_death_defying_state(const bool enabled) -> void
 auto is_valid_game_type() -> bool
 {
     static auto patch_enabled = false;
+    auto const game_type = state_ptr->game_type;
 
-    auto game_type = state_ptr->game_type;
-    auto patch_state = (game_type == 0); // STANDARD
+    auto is_standard = (game_type == 0);
+    auto is_special_gauge = false;
 
-    // enable and disable the patch depending on the game type & play style
-    static auto last_game_type = -1;
+    if (p1_dan_gauge != nullptr && *p1_dan_gauge != 0)
+        is_special_gauge = true;
+    if (p2_dan_gauge != nullptr && *p2_dan_gauge != 0)
+        is_special_gauge = true;
+    if (dp_dan_gauge != nullptr && *dp_dan_gauge != 0)
+        is_special_gauge = true;
 
-    if (last_game_type != game_type)
+    if (p1_erosion_gauge != nullptr && *p1_erosion_gauge != 0)
+        is_special_gauge = true;
+    if (p2_erosion_gauge != nullptr && *p2_erosion_gauge != 0)
+        is_special_gauge = true;
+    if (dp_erosion_gauge != nullptr && *dp_erosion_gauge != 0)
+        is_special_gauge = true;
+
+    // gauge shifting is only valid in STANDARD mode without special gauges
+    auto const patch_state = is_standard && !is_special_gauge;
+
+    // enable and disable the patch when state changes
+    if (patch_enabled != patch_state)
     {
-        if (patch_enabled != patch_state)
-        {
-            set_death_defying_state(patch_state);
-            patch_enabled = patch_state;
-        }
+        set_death_defying_state(patch_state);
+        patch_enabled = patch_state;
     }
-
-    last_game_type = game_type;
 
     // only allow hook code to run in whitelisted game modes
     return patch_state;
@@ -171,6 +182,14 @@ void* replacement_calculate_chart_judge(void* a1, void* a2, int a3, int a4, int 
         p1_gauge_type_ptr = reinterpret_cast<decltype(p1_gauge_type_ptr)>(&(*option_data_ptr)->p1_gauge_type);
         p2_gauge_type_ptr = reinterpret_cast<decltype(p2_gauge_type_ptr)>(&(*option_data_ptr)->p2_gauge_type);
         dp_gauge_type_ptr = reinterpret_cast<decltype(dp_gauge_type_ptr)>(&(*option_data_ptr)->dp_gauge_type);
+
+        p1_erosion_gauge = reinterpret_cast<decltype(p1_erosion_gauge)>(&(*option_data_ptr)->p1_erosion_gauge);
+        p2_erosion_gauge = reinterpret_cast<decltype(p2_erosion_gauge)>(&(*option_data_ptr)->p2_erosion_gauge);
+        dp_erosion_gauge = reinterpret_cast<decltype(dp_erosion_gauge)>(&(*option_data_ptr)->dp_erosion_gauge);
+
+        p1_dan_gauge = reinterpret_cast<decltype(p1_dan_gauge)>(&(*option_data_ptr)->p1_dan_gauge);
+        p2_dan_gauge = reinterpret_cast<decltype(p2_dan_gauge)>(&(*option_data_ptr)->p2_dan_gauge);
+        dp_dan_gauge = reinterpret_cast<decltype(dp_dan_gauge)>(&(*option_data_ptr)->dp_dan_gauge);
     }
 
     // get note count from CStageGameData instead
