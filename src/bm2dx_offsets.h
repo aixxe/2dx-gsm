@@ -17,6 +17,7 @@ namespace offsets
     extern binary_info* active;
 
     extern std::uintptr_t death_defying_patch;
+    extern std::uint8_t death_defying_jump;
 
     extern std::uintptr_t state_ptr;
     extern std::uintptr_t gauge_data_ptr;

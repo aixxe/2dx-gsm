@@ -11,6 +11,7 @@ namespace offsets
     binary_info* active = nullptr;
 
     std::uintptr_t death_defying_patch = 0;
+    std::uint8_t death_defying_jump = 0;
 
     std::uintptr_t state_ptr = 0;
     std::uintptr_t gauge_data_ptr = 0;

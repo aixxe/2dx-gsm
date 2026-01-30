@@ -122,5 +122,6 @@ extern std::uint32_t* dp_gauge_type_ptr;
 extern std::int64_t (*calculate_individual_chart_judge_value) (int, int, int);
 
 extern std::unique_ptr<util::code_patch> death_defying_patch;
+extern std::uint8_t death_defying_jump;
 
 void iidx_gsm_load(HMODULE bm2dx);

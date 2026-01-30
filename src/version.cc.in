@@ -16,6 +16,7 @@ struct bm2dx_impl_@EXPECTED_BM2DX_PRODUCT_VERSION@_@EXPECTED_BM2DX_PRODUCT_TYPE@
     void resolve_rva(std::uintptr_t base) override
     {
         offsets::death_defying_patch = (base + @RESOLVED_DEATH_DEFYING_PATCH@);
+        offsets::death_defying_jump = (base + @RESOLVED_DEATH_DEFYING_JUMP@);
 
         offsets::state_ptr = (base + @RESOLVED_STATE_PTR@);
         offsets::gauge_data_ptr = (base + @RESOLVED_GAUGE_DATA_PTR@);
