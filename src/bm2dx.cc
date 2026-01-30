@@ -40,7 +40,7 @@ void iidx_gsm_load(HMODULE bm2dx)
     // code patches
     death_defying_patch = std::make_unique<util::code_patch>(
         util::code_patch(reinterpret_cast<void*>(offsets::death_defying_patch), {
-            0xEB, 0x56, 0x90, 0x90, 0x90
+            0xEB, offsets::death_defying_jump, 0x90, 0x90, 0x90
         })
     );
 
