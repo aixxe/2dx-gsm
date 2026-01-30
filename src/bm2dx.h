@@ -28,13 +28,25 @@ struct chart_judgement_t
 
 struct COptionGameData
 {
-    /* 0x0000 */ char pad_0000[76];
-    /* 0x004C */ int32_t p1_gauge_type;
-    /* 0x0050 */ char pad_0050[148];
-    /* 0x00E4 */ int32_t p2_gauge_type;
-    /* 0x00E8 */ char pad_00E8[148];
-    /* 0x017C */ int32_t dp_gauge_type;
-}; static_assert(sizeof(COptionGameData) == 0x180);
+    /* 0x0000 */ std::uint8_t pad_0000[76];
+    /* 0x004C */ std::int32_t p1_gauge_type;
+    /* 0x0050 */ std::int32_t p1_dan_gauge;
+    /* 0x0054 */ std::int32_t p1_dan_gauge_initial;
+    /* 0x0058 */ std::uint8_t pad_0058[4];
+    /* 0x005C */ std::int32_t p1_erosion_gauge;
+    /* 0x0060 */ std::uint8_t pad_0060[148];
+    /* 0x00F4 */ std::int32_t p2_gauge_type;
+    /* 0x00F8 */ std::int32_t p2_dan_gauge;
+    /* 0x00FC */ std::int32_t p2_dan_gauge_initial;
+    /* 0x0100 */ std::uint8_t pad_0100[4];
+    /* 0x0104 */ std::int32_t p2_erosion_gauge;
+    /* 0x0108 */ std::uint8_t pad_0108[148];
+    /* 0x019C */ std::int32_t dp_gauge_type;
+    /* 0x01A0 */ std::int32_t dp_dan_gauge;
+    /* 0x01A4 */ std::int32_t dp_dan_gauge_initial;
+    /* 0x01A8 */ std::uint8_t pad_01A8[4];
+    /* 0x01AC */ std::int32_t dp_erosion_gauge;
+}; static_assert(sizeof(COptionGameData) == 0x1B0);
 
 struct StageResultDrawGraph
 {
@@ -118,6 +130,14 @@ extern std::uint32_t* p2_dead_measure_ptr;
 extern std::uint32_t* p1_gauge_type_ptr;
 extern std::uint32_t* p2_gauge_type_ptr;
 extern std::uint32_t* dp_gauge_type_ptr;
+
+extern std::uint32_t* p1_erosion_gauge;
+extern std::uint32_t* p2_erosion_gauge;
+extern std::uint32_t* dp_erosion_gauge;
+
+extern std::uint32_t* p1_dan_gauge;
+extern std::uint32_t* p2_dan_gauge;
+extern std::uint32_t* dp_dan_gauge;
 
 extern std::int64_t (*calculate_individual_chart_judge_value) (int, int, int);
 

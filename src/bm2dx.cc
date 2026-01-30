@@ -26,6 +26,14 @@ decltype(p1_gauge_type_ptr) p1_gauge_type_ptr = nullptr;
 decltype(p2_gauge_type_ptr) p2_gauge_type_ptr = nullptr;
 decltype(dp_gauge_type_ptr) dp_gauge_type_ptr = nullptr;
 
+decltype(p1_erosion_gauge) p1_erosion_gauge = nullptr;
+decltype(p2_erosion_gauge) p2_erosion_gauge = nullptr;
+decltype(dp_erosion_gauge) dp_erosion_gauge = nullptr;
+
+decltype(p1_dan_gauge) p1_dan_gauge = nullptr;
+decltype(p2_dan_gauge) p2_dan_gauge = nullptr;
+decltype(dp_dan_gauge) dp_dan_gauge = nullptr;
+
 // invokable functions
 decltype(calculate_individual_chart_judge_value) calculate_individual_chart_judge_value = nullptr;
 
